@@ -1,5 +1,5 @@
 /**
- * Home Page - Process Timeline
+ * Timeline Page - Process Timeline
  * Vertical timeline showing all phases of the HR complaint resolution process
  * Following APP_ARCHITECTURE.md phases
  */
@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Button, Card, Modal, FileUpload, ResponseForm, ResponseFormData, PDFViewer, EmailComposer } from '@/components/ui';
 
-export default function Home() {
+export default function Timeline() {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isPhase1Complete, setIsPhase1Complete] = useState(false);
@@ -26,7 +26,19 @@ export default function Home() {
   const [chatMessages, setChatMessages] = useState<Array<{ role: 'user' | 'bot', message: string }>>([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [isMediationNotesModalOpen, setIsMediationNotesModalOpen] = useState(false);
-  const [mediationNotes, setMediationNotes] = useState('');
+  const [mediationNotes, setMediationNotes] = useState(`Monetary:
+- Agreed for Injury to Dignity: $5,000
+- Wage Loss: $7,000
+
+Audit:
+- Completion internal review
+- Policy & Dismissal review
+
+Address:
+- Obligation with duty to accommodate an employee's disability to the point of undue hardship under the Human Rights Code
+
+Address Discrimination:
+- Included language confirming that the alleged discrimination will stop and not be repeated in the future`);
   const [prepareSettlement, setPrepareSettlement] = useState<'yes' | 'no' | null>(null);
   const [isPhase6Complete, setIsPhase6Complete] = useState(false);
   const [settlementAccepted, setSettlementAccepted] = useState(false);
@@ -37,20 +49,21 @@ export default function Home() {
   const [isSettlementPDFModalOpen, setIsSettlementPDFModalOpen] = useState(false);
   const [isSettlementEmailModalOpen, setIsSettlementEmailModalOpen] = useState(false);
   const [isPhase9Complete, setIsPhase9Complete] = useState(false);
+  const [isPhase10Complete, setIsPhase10Complete] = useState(false);
   const [isTribunalEmailModalOpen, setIsTribunalEmailModalOpen] = useState(false);
   const [isPhase11Complete, setIsPhase11Complete] = useState(false);
 
   // Settlement Offer Form State
   const [recommendedPrecedent, setRecommendedPrecedent] = useState('');
-  const [agreedMediation, setAgreedMediation] = useState('');
+  const [agreedMediation, setAgreedMediation] = useState('Agreed for Injury to Dignity: $5,000, Wage Loss: $7,000');
   const [injuryToDignity, setInjuryToDignity] = useState('5000');
   const [wageLoss, setWageLoss] = useState('7000');
-  const [separateDamages, setSeparateDamages] = useState<'yes' | 'no' | null>(null);
-  const [auditCompleted, setAuditCompleted] = useState<'yes' | 'no' | null>(null);
-  const [auditDetails, setAuditDetails] = useState('');
-  const [policyAuditCompleted, setPolicyAuditCompleted] = useState<'yes' | 'no' | null>(null);
-  const [dutyToAccommodate, setDutyToAccommodate] = useState('');
-  const [discriminationLanguage, setDiscriminationLanguage] = useState<'yes' | 'no' | null>(null);
+  const [separateDamages, setSeparateDamages] = useState<'yes' | 'no' | null>('yes');
+  const [auditCompleted, setAuditCompleted] = useState<'yes' | 'no' | null>('yes');
+  const [auditDetails, setAuditDetails] = useState('Completion internal review');
+  const [policyAuditCompleted, setPolicyAuditCompleted] = useState<'yes' | 'no' | null>('yes');
+  const [dutyToAccommodate, setDutyToAccommodate] = useState("Obligation with duty to accommodate an employee's disability to the point of undue hardship under the Human Rights Code");
+  const [discriminationLanguage, setDiscriminationLanguage] = useState<'yes' | 'no' | null>('yes');
 
   const handleFileSelect = (file: File) => {
     setUploadedFile(file);
@@ -128,6 +141,7 @@ export default function Home() {
   const handleSettlementResponse = (response: 'accepted' | 'rejected') => {
     if (response === 'accepted') {
       setSettlementAccepted(true);
+      setIsPhase10Complete(true);
       setShowCelebration(true);
       // Hide celebration after 5 seconds
       setTimeout(() => setShowCelebration(false), 5000);
@@ -200,72 +214,191 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-secondary-cream">
-      {/* Celebration Balloons */}
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--primary-background)' }}>
+      {/* Celebration - Professional & Sleek with Elegant Balloons */}
       {showCelebration && (
-        <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-          {/* Balloons */}
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute animate-float-up"
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
-              }}
-            >
+        <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
+          {/* Elegant backdrop with subtle gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-transparent animate-fade-in" style={{ overflow: 'hidden' }} />
+
+          {/* Elegant Balloons - Matching Design System */}
+          {[...Array(16)].map((_, i) => {
+            const colors = ['#d4edf4', '#bfe6f0', '#aadee8', '#8fd0dd', '#74c2d2'];
+            const size = 35 + Math.random() * 20;
+            return (
               <div
-                className="w-12 h-16 rounded-full"
+                key={i}
+                className="absolute animate-float-up"
                 style={{
-                  backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'][Math.floor(Math.random() * 6)],
-                  boxShadow: 'inset -10px -10px 0 rgba(0,0,0,0.07)'
+                  left: `${10 + Math.random() * 80}%`,
+                  bottom: '0',
+                  transform: 'translateY(150px)',
+                  animationDelay: `${Math.random() * 2}s`,
+                  animationDuration: `${5 + Math.random() * 3}s`
                 }}
               >
-                <div className="absolute bottom-0 left-1/2 w-px h-8 bg-gray-400 transform -translate-x-1/2"></div>
+                <div
+                  className="relative"
+                  style={{
+                    width: `${size}px`,
+                    height: `${size * 1.2}px`,
+                    backgroundColor: colors[Math.floor(Math.random() * colors.length)],
+                    borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+                    boxShadow: 'inset -10px -10px 20px rgba(0,0,0,0.08), 0 8px 30px rgba(0,0,0,0.12)',
+                    transform: `rotate(${-15 + Math.random() * 30}deg)`,
+                    border: '1px solid rgba(255,255,255,0.3)'
+                  }}
+                >
+                  {/* Balloon string */}
+                  <div
+                    className="absolute"
+                    style={{
+                      bottom: `${-40 - Math.random() * 20}px`,
+                      left: '50%',
+                      width: '1.5px',
+                      height: `${40 + Math.random() * 20}px`,
+                      backgroundColor: 'rgba(52, 92, 114, 0.3)',
+                      transform: 'translateX(-50%)',
+                      borderRadius: '2px'
+                    }}
+                  />
+                  {/* Balloon knot */}
+                  <div
+                    className="absolute"
+                    style={{
+                      bottom: `${-45 - Math.random() * 20}px`,
+                      left: '50%',
+                      width: '5px',
+                      height: '5px',
+                      backgroundColor: '#345c72',
+                      borderRadius: '50%',
+                      transform: 'translateX(-50%)',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}
+                  />
+                  {/* Balloon highlight - glossy effect */}
+                  <div
+                    className="absolute"
+                    style={{
+                      top: `${size * 0.2}px`,
+                      left: `${size * 0.25}px`,
+                      width: `${size * 0.25}px`,
+                      height: `${size * 0.35}px`,
+                      backgroundColor: 'rgba(255,255,255,0.5)',
+                      borderRadius: '50%',
+                      filter: 'blur(3px)',
+                      opacity: 0.8
+                    }}
+                  />
+                  {/* Secondary highlight */}
+                  <div
+                    className="absolute"
+                    style={{
+                      top: `${size * 0.15}px`,
+                      left: `${size * 0.2}px`,
+                      width: `${size * 0.15}px`,
+                      height: `${size * 0.15}px`,
+                      backgroundColor: 'rgba(255,255,255,0.7)',
+                      borderRadius: '50%',
+                      filter: 'blur(1px)'
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
-          {/* Confetti */}
-          {[...Array(50)].map((_, i) => (
+          {/* Professional Success Message */}
+          <div className="pointer-events-auto animate-scale-in">
             <div
-              key={`confetti-${i}`}
-              className="absolute animate-confetti"
+              className="rounded-3xl p-12 shadow-2xl max-w-2xl mx-4"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: '-10px',
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
+                backgroundColor: 'var(--primary-bubble)',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
               }}
             >
-              <div
-                className="w-2 h-2"
+              {/* Success Icon */}
+              <div className="flex justify-center mb-6">
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center"
+                  style={{
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    border: '3px solid rgb(34, 197, 94)'
+                  }}
+                >
+                  <svg
+                    className="w-12 h-12"
+                    fill="none"
+                    stroke="rgb(34, 197, 94)"
+                    viewBox="0 0 24 24"
+                    strokeWidth="3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Title */}
+              <h2
+                className="font-bold text-center mb-6"
                 style={{
-                  backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'][Math.floor(Math.random() * 6)],
-                  transform: `rotate(${Math.random() * 360}deg)`
+                  fontSize: '42px',
+                  color: 'var(--primary-bubble-text)',
+                  fontFamily: 'var(--font-heading)',
+                  letterSpacing: '-0.02em'
+                }}
+              >
+                Settlement Accepted
+              </h2>
+
+              {/* Divider */}
+              <div
+                className="h-px mx-auto mb-6"
+                style={{
+                  width: '60%',
+                  backgroundColor: 'var(--primary-bubble-text)',
+                  opacity: 0.2
                 }}
               />
-            </div>
-          ))}
 
-          {/* Congratulations Message */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-auto">
-            <div className="bg-white rounded-3xl p-8 shadow-2xl border-4 border-primary-yellow animate-bounce-in">
-              <h2 className="text-6xl font-bold text-primary-dark mb-4">🎉 Congratulations! 🎉</h2>
-              <p className="text-2xl text-primary-dark/80">Settlement Accepted!</p>
+              {/* Details */}
+              <div className="text-center">
+                <p
+                  className="text-sm"
+                  style={{
+                    color: 'var(--primary-bubble-text)',
+                    opacity: 0.6
+                  }}
+                >
+                  You can now proceed to notify the tribunal
+                </p>
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {/* Hero Section */}
-      <section className="bg-primary-yellow py-12 px-6">
+      <section className="py-12 px-6" style={{ backgroundColor: 'var(--primary-background)' }}>
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-dark mb-4">
-            Your Complaint Resolution Journey
+          <h1 className="font-bold mb-4" style={{
+            fontSize: 'var(--text-title)',
+            color: 'var(--primary-text)',
+            fontWeight: 'var(--weight-bold)',
+            fontFamily: 'var(--font-heading)'
+          }}>
+            Timeline
           </h1>
-          <p className="text-lg text-primary-dark/80 italic">
+          <p className="italic" style={{
+            fontSize: 'var(--text-subheading)',
+            color: 'var(--primary-text)',
+            fontWeight: 'var(--weight-bold)',
+            fontFamily: 'var(--font-heading)'
+          }}>
             We'll guide you step-by-step through the entire process. Let's get started.
           </p>
         </div>
@@ -294,7 +427,12 @@ export default function Home() {
                 className="cursor-pointer hover:shadow-lg transition-shadow"
                 onClick={() => setIsUploadModalOpen(true)}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Upload Notice Letter
                 </h2>
               </Card>
@@ -320,7 +458,12 @@ export default function Home() {
                 className={`${isPhase1Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
                 onClick={() => isPhase1Complete && setIsResponseModalOpen(true)}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Prepare Response
                 </h2>
               </Card>
@@ -346,7 +489,12 @@ export default function Home() {
                 className={`${isPhase2Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
                 onClick={() => isPhase2Complete && handleSubmitResponse()}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Submit Response
                 </h2>
               </Card>
@@ -372,7 +520,12 @@ export default function Home() {
                 className={`${isPhase3Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
                 onClick={() => isPhase3Complete && handleMediationPreparation()}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Mediation Preparation
                 </h2>
               </Card>
@@ -398,11 +551,16 @@ export default function Home() {
                 className={`${isPhase3Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
                 onClick={() => isPhase3Complete && handleMediation()}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Mediation
                 </h2>
                 {isPhase3Complete && (
-                  <p className="text-primary-dark/70 mt-2">{mediationDate}</p>
+                  <p className="mt-2" style={{ fontSize: 'var(--text-body)', color: 'var(--primary-bubble-text)', opacity: 0.7 }}>{mediationDate}</p>
                 )}
               </Card>
             </div>
@@ -426,10 +584,15 @@ export default function Home() {
                 rounded="large"
                 className={`${isPhase5Complete ? '' : 'opacity-60'}`}
               >
-                <h2 className="text-2xl font-bold text-primary-dark mb-4">
+                <h2 className="font-bold mb-4" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Prepare Settlement
                 </h2>
-                <p className="text-primary-dark/70 mb-4">Do you want to prepare a settlement offer?</p>
+                <p className="mb-4" style={{ fontSize: 'var(--text-body)', color: 'var(--primary-bubble-text)', opacity: 0.7 }}>Do you want to prepare a settlement offer?</p>
                 <div className="flex gap-4">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -477,7 +640,12 @@ export default function Home() {
                 className={`${prepareSettlement === 'yes' ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
                 onClick={() => prepareSettlement === 'yes' && handlePrepareSettlementOffer()}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Prepare Settlement Offer
                 </h2>
               </Card>
@@ -503,7 +671,12 @@ export default function Home() {
                 className={`${isPhase7Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
                 onClick={() => isPhase7Complete && handleApproveSettlementLetter()}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Approve Settlement Offer Letter
                 </h2>
               </Card>
@@ -529,7 +702,12 @@ export default function Home() {
                 className={`${isPhase8Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
                 onClick={() => isPhase8Complete && handleDeliverSettlementOffer()}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Deliver Settlement Offer Letter
                 </h2>
               </Card>
@@ -538,13 +716,24 @@ export default function Home() {
 
           {/* Phase 10: Settlement Response */}
           <div className="relative mb-8">
-            <div className="absolute left-4 w-8 h-8 rounded-full bg-accent-warm border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-white text-sm font-bold">10</span>
+            <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
+              isPhase10Complete ? 'bg-primary-dark' : 'bg-accent-warm'
+            }`}>
+              {isPhase10Complete ? (
+                <span className="text-green-500 text-xl font-bold">✓</span>
+              ) : (
+                <span className="text-white text-sm font-bold">10</span>
+              )}
             </div>
 
             <div className="ml-20">
               <Card padding="large" rounded="large" className="border-2 border-accent-warm">
-                <h2 className="text-2xl font-bold text-primary-dark mb-4">
+                <h2 className="font-bold mb-4" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Settlement Response
                 </h2>
 
@@ -570,12 +759,12 @@ export default function Home() {
           {/* Phase 11: Notify Tribunal */}
           <div className="relative mb-8">
             <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
-              isPhase11Complete ? 'bg-primary-dark' : 'bg-secondary-beige'
+              isPhase11Complete ? 'bg-primary-dark' : isPhase10Complete ? 'bg-primary-dark' : 'bg-secondary-beige'
             }`}>
               {isPhase11Complete ? (
                 <span className="text-green-500 text-xl font-bold">✓</span>
               ) : (
-                <span className="text-primary-dark text-sm font-bold">11</span>
+                <span className={isPhase10Complete ? 'text-white' : 'text-primary-dark'} style={{ fontSize: '14px', fontWeight: 'bold' }}>11</span>
               )}
             </div>
 
@@ -583,10 +772,15 @@ export default function Home() {
               <Card
                 padding="large"
                 rounded="large"
-                className={`${settlementAccepted ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
-                onClick={() => settlementAccepted && handleNotifyTribunal()}
+                className={`${isPhase10Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
+                onClick={() => isPhase10Complete && handleNotifyTribunal()}
               >
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Notify Tribunal
                 </h2>
               </Card>
@@ -595,13 +789,20 @@ export default function Home() {
 
           {/* Phase 12: Disclosure Preparation */}
           <div className="relative mb-8">
-            <div className="absolute left-4 w-8 h-8 rounded-full bg-secondary-beige border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-primary-dark text-sm font-bold">12</span>
+            <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
+              isPhase11Complete ? 'bg-primary-dark' : 'bg-secondary-beige'
+            }`}>
+              <span className="text-sm font-bold" style={{ color: isPhase11Complete ? '#ffffff' : 'var(--primary-dark)' }}>12</span>
             </div>
 
             <div className="ml-20">
-              <Card padding="large" rounded="large" className="opacity-60">
-                <h2 className="text-2xl font-bold text-primary-dark">
+              <Card padding="large" rounded="large" className={`${isPhase11Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}>
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Disclosure Preparation
                 </h2>
               </Card>
@@ -616,7 +817,12 @@ export default function Home() {
 
             <div className="ml-20">
               <Card padding="large" rounded="large" className="opacity-60">
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Disclosure Submission
                 </h2>
               </Card>
@@ -631,7 +837,12 @@ export default function Home() {
 
             <div className="ml-20">
               <Card padding="large" rounded="large" className="opacity-60">
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Hearing Preparation
                 </h2>
               </Card>
@@ -646,7 +857,12 @@ export default function Home() {
 
             <div className="ml-20">
               <Card padding="large" rounded="large" className="opacity-60">
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   The Hearing
                 </h2>
               </Card>
@@ -661,7 +877,12 @@ export default function Home() {
 
             <div className="ml-20">
               <Card padding="large" rounded="large" className="bg-accent-warm/10">
-                <h2 className="text-2xl font-bold text-primary-dark">
+                <h2 className="font-bold" style={{
+                  fontSize: 'var(--text-subheading)',
+                  color: 'var(--primary-bubble-text)',
+                  fontWeight: 'var(--weight-bold)',
+                  fontFamily: 'var(--font-heading)'
+                }}>
                   Resolution Achieved
                 </h2>
               </Card>
@@ -671,12 +892,21 @@ export default function Home() {
       </section>
 
       {/* Help Section */}
-      <section className="bg-primary-yellow py-12 px-6">
+      <section className="py-12 px-6" style={{ backgroundColor: 'var(--primary-background)' }}>
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-primary-dark mb-4">
+          <h2 className="font-bold mb-4" style={{
+            fontSize: 'var(--text-subheading)',
+            color: 'var(--primary-text)',
+            fontWeight: 'var(--weight-bold)',
+            fontFamily: 'var(--font-heading)'
+          }}>
             Need Help Getting Started?
           </h2>
-          <p className="text-lg text-primary-dark/80 mb-6">
+          <p className="mb-6" style={{
+            fontSize: 'var(--text-body)',
+            color: 'var(--primary-text)',
+            opacity: 0.8
+          }}>
             Our team is here to support you through every phase of the process.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">

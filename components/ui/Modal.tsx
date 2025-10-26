@@ -28,19 +28,21 @@ export function Modal({ isOpen, onClose, title, children, size = 'medium' }: Mod
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-primary-dark/50 backdrop-blur-sm"
+        className="absolute inset-0 backdrop-blur-sm"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className={`relative bg-white rounded-3xl shadow-2xl ${sizeClasses[size]} w-full ${size === 'large' ? 'h-[95vh]' : 'max-h-[95vh]'} overflow-hidden flex flex-col`}>
+      <div className={`relative rounded-3xl shadow-2xl ${sizeClasses[size]} w-full ${size === 'large' ? 'h-[95vh]' : 'max-h-[95vh]'} overflow-hidden flex flex-col`} style={{ backgroundColor: 'var(--primary-bubble)' }}>
         {/* Header */}
         {title && (
-          <div className={`bg-primary-yellow border-b-2 border-primary-dark/10 rounded-t-3xl flex-shrink-0 ${size === 'large' ? 'px-6 py-4' : 'px-8 py-6'}`}>
-            <h2 className={`font-bold text-primary-dark ${size === 'large' ? 'text-2xl' : 'text-3xl'}`}>{title}</h2>
+          <div className={`rounded-t-3xl flex-shrink-0 ${size === 'large' ? 'px-6 py-4' : 'px-8 py-6'}`} style={{ backgroundColor: 'var(--primary-bubble)', borderBottom: '2px solid rgba(42, 46, 48, 0.1)' }}>
+            <h2 className={`font-bold ${size === 'large' ? 'text-2xl' : 'text-3xl'}`} style={{ color: 'var(--primary-bubble-text)' }}>{title}</h2>
             <button
               onClick={onClose}
-              className={`absolute text-primary-dark hover:opacity-70 transition-opacity text-2xl ${size === 'large' ? 'top-4 right-6' : 'top-6 right-8'}`}
+              className={`absolute hover:opacity-70 transition-opacity text-2xl ${size === 'large' ? 'top-4 right-6' : 'top-6 right-8'}`}
+              style={{ color: 'var(--primary-bubble-text)' }}
             >
               ×
             </button>
@@ -48,7 +50,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'medium' }: Mod
         )}
 
         {/* Content */}
-        <div className={`flex-1 overflow-y-auto ${size === 'large' ? 'p-0' : 'p-8'} ${!title ? 'rounded-t-3xl' : ''}`}>{children}</div>
+        <div className={`flex-1 overflow-y-auto ${size === 'large' ? 'p-0' : 'p-8'} ${!title ? 'rounded-t-3xl' : ''}`} style={{ color: 'var(--primary-bubble-text)' }}>{children}</div>
       </div>
     </div>
   );

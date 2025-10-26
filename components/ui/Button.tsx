@@ -17,6 +17,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 export function Button({
@@ -25,6 +26,7 @@ export function Button({
   className = '',
   children,
   disabled,
+  style,
   ...props
 }: ButtonProps) {
   const baseStyles = `
@@ -44,8 +46,6 @@ export function Button({
 
   const variantStyles = {
     primary: `
-      bg-white
-      text-primary-dark
       border-none
       shadow-button
       hover:shadow-button-hover
@@ -57,14 +57,10 @@ export function Button({
     `,
     secondary: `
       bg-transparent
-      text-primary-dark
       border-2
-      border-primary-dark
-      hover:bg-primary-dark
-      hover:text-white
-      active:bg-primary-dark
+      hover:opacity-80
+      active:opacity-90
       disabled:hover:bg-transparent
-      disabled:hover:text-primary-dark
     `
   };
 
@@ -81,9 +77,22 @@ export function Button({
     ${className}
   `.replace(/\s+/g, ' ').trim();
 
+  const buttonStyle = variant === 'primary'
+    ? {
+        backgroundColor: 'var(--primary-bubble)',
+        color: 'var(--primary-bubble-text)',
+        ...style
+      }
+    : {
+        borderColor: 'var(--primary-text)',
+        color: 'var(--primary-text)',
+        ...style
+      };
+
   return (
     <button
       className={combinedStyles}
+      style={buttonStyle}
       disabled={disabled}
       {...props}
     >

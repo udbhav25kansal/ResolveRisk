@@ -61,15 +61,11 @@ export function FileUpload({ onFileSelect, accept = '.pdf' }: FileUploadProps) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`
-          border-4 border-dashed rounded-2xl p-12 text-center cursor-pointer
-          transition-all duration-200
-          ${
-            isDragging
-              ? 'border-primary-dark bg-primary-yellow/20'
-              : 'border-primary-dark/30 hover:border-primary-dark/50 hover:bg-secondary-cream'
-          }
-        `}
+        className="border-4 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all duration-200"
+        style={{
+          borderColor: isDragging ? 'var(--primary-bubble-text)' : 'rgba(42, 46, 48, 0.3)',
+          backgroundColor: isDragging ? 'rgba(212, 237, 244, 0.3)' : 'transparent'
+        }}
       >
         <input
           ref={fileInputRef}
@@ -82,23 +78,23 @@ export function FileUpload({ onFileSelect, accept = '.pdf' }: FileUploadProps) {
         <div className="flex flex-col items-center gap-4">
           {selectedFile ? (
             <>
-              <div className="text-2xl font-semibold text-primary-dark">
+              <div className="text-2xl font-semibold" style={{ color: 'var(--primary-bubble-text)' }}>
                 {selectedFile.name}
               </div>
-              <div className="text-sm text-primary-dark/60">
+              <div className="text-sm" style={{ color: 'var(--primary-bubble-text)', opacity: 0.6 }}>
                 {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
               </div>
               <div className="text-4xl text-green-600">✓</div>
             </>
           ) : (
             <>
-              <div className="text-xl font-medium text-primary-dark">
+              <div className="text-xl font-medium" style={{ color: 'var(--primary-bubble-text)' }}>
                 {isDragging ? 'Drop your file here' : 'Drag & drop your notice letter'}
               </div>
-              <div className="text-sm text-primary-dark/60">
+              <div className="text-sm" style={{ color: 'var(--primary-bubble-text)', opacity: 0.6 }}>
                 or click to browse
               </div>
-              <div className="text-xs text-primary-dark/50">
+              <div className="text-xs" style={{ color: 'var(--primary-bubble-text)', opacity: 0.5 }}>
                 PDF files only
               </div>
             </>

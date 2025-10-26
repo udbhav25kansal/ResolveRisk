@@ -13,6 +13,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Button } from '../ui';
 
 export interface HeaderProps {
@@ -21,19 +22,23 @@ export interface HeaderProps {
 }
 
 export function Header({ isAuthenticated = false, userName }: HeaderProps) {
+  const pathname = usePathname();
+
+  // Show complaint-specific tabs only when NOT on the portal (home) page
+  const showComplaintTabs = pathname !== '/portal';
   return (
-    <header className="bg-primary-yellow py-4 px-6 md:px-12">
+    <header className="py-4 px-6 md:px-12" style={{ backgroundColor: 'var(--primary-background)' }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo + Brand */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-full bg-primary-dark flex items-center justify-center">
-            <span className="text-primary-yellow text-xl font-bold">R</span>
+        <Link href="/portal" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--primary-bubble)' }}>
+            <span className="text-xl font-bold" style={{ color: 'var(--primary-bubble-text)' }}>R</span>
           </div>
           <div>
-            <h1 className="text-sm font-semibold text-primary-dark tracking-wide">
+            <h1 className="text-sm font-semibold tracking-wide" style={{ color: 'var(--primary-text)' }}>
               RESOLVERISK™
             </h1>
-            <p className="text-xs text-primary-dark/70">Human Rights Portal</p>
+            <p className="text-xs" style={{ color: 'var(--primary-text)', opacity: 0.7 }}>Human Rights Portal</p>
           </div>
         </Link>
 
@@ -56,24 +61,38 @@ export function Header({ isAuthenticated = false, userName }: HeaderProps) {
             </>
           ) : (
             <>
-              <Link
-                href="/"
-                className="text-primary-dark hover:opacity-70 transition-opacity font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                href="/complaint-hub"
-                className="text-primary-dark hover:opacity-70 transition-opacity font-medium"
-              >
-                Complaint Hub
-              </Link>
-              <Link
-                href="/complaint-hub"
-                className="rounded-full font-medium text-base transition-all duration-300 ease-default cursor-pointer inline-block text-center min-h-[44px] bg-white text-primary-dark border-none shadow-button hover:shadow-button-hover hover:-translate-y-0.5 active:translate-y-0 active:shadow-button-active px-6 py-2"
-              >
-                Complaint Summary
-              </Link>
+              {showComplaintTabs ? (
+                <>
+                  <Link
+                    href="/portal"
+                    className="hover:opacity-70 transition-opacity font-medium"
+                    style={{ color: 'var(--primary-text)' }}
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="/"
+                    className="hover:opacity-70 transition-opacity font-medium"
+                    style={{ color: 'var(--primary-text)' }}
+                  >
+                    Timeline
+                  </Link>
+                  <Link
+                    href="/complaint-summary"
+                    className="hover:opacity-70 transition-opacity font-medium"
+                    style={{ color: 'var(--primary-text)' }}
+                  >
+                    Complaint Summary
+                  </Link>
+                  <Link
+                    href="/complaint-hub"
+                    className="hover:opacity-70 transition-opacity font-medium"
+                    style={{ color: 'var(--primary-text)' }}
+                  >
+                    Complaint Hub
+                  </Link>
+                </>
+              ) : null}
             </>
           )}
         </nav>

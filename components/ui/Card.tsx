@@ -4,7 +4,7 @@
  *
  * Features:
  * - Rounded corners (24px default)
- * - White background
+ * - Bubble background (#d4edf4)
  * - Subtle shadow
  * - Consistent padding
  */
@@ -16,6 +16,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   padding?: 'small' | 'medium' | 'large';
   rounded?: 'medium' | 'large' | 'xlarge';
+  style?: React.CSSProperties;
 }
 
 export function Card({
@@ -23,6 +24,7 @@ export function Card({
   className = '',
   padding = 'medium',
   rounded = 'large',
+  style,
   ...rest
 }: CardProps) {
   const paddingStyles = {
@@ -38,15 +40,20 @@ export function Card({
   };
 
   const combinedStyles = `
-    bg-white
     shadow-md
     ${roundedStyles[rounded]}
     ${paddingStyles[padding]}
     ${className}
   `.replace(/\s+/g, ' ').trim();
 
+  const defaultStyle = {
+    backgroundColor: 'var(--primary-bubble)',
+    color: 'var(--primary-bubble-text)',
+    ...style
+  };
+
   return (
-    <div className={combinedStyles} {...rest}>
+    <div className={combinedStyles} style={defaultStyle} {...rest}>
       {children}
     </div>
   );
