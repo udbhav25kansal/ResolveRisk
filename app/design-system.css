@@ -1,0 +1,437 @@
+/**
+ * Justice Hack Design System - CSS Variables
+ *
+ * Import this file into your project to access all design tokens.
+ * Reference: DESIGN_GUIDE.md for detailed usage guidelines.
+ *
+ * Usage:
+ * Import in your CSS: @import './design-system.css';
+ * Use variables: background-color: var(--primary-yellow);
+ */
+
+:root {
+  /* ========================================
+     COLORS - Primary
+     ======================================== */
+  --primary-background: #345c72;
+  --primary-text: #ffffff;
+  --primary-bubble: #d4edf4;
+  --primary-bubble-text: #2a2e30;
+
+  /* Legacy color names (kept for backwards compatibility) */
+  --primary-yellow: #E8ED68;
+  --primary-dark: #2D2A26;
+  --primary-white: #FFFFFF;
+
+  /* ========================================
+     COLORS - Secondary
+     ======================================== */
+  --secondary-beige: #D4D1B8;
+  --secondary-cream: #F5F4ED;
+  --accent-warm: #E8D5B7;
+
+  /* ========================================
+     COLORS - Semantic
+     ======================================== */
+  --success-green: #4CAF50;
+  --warning-orange: #FF9800;
+  --error-red: #F44336;
+  --info-blue: #2196F3;
+
+  /* ========================================
+     COLORS - Neutral
+     ======================================== */
+  --gray-50: #FAFAFA;
+  --gray-100: #F5F5F5;
+  --gray-200: #E0E0E0;
+  --gray-300: #D1D1D1;
+  --gray-400: #BDBDBD;
+  --gray-500: #9E9E9E;
+  --gray-600: #757575;
+  --gray-700: #616161;
+  --gray-800: #424242;
+  --gray-900: #212121;
+
+  /* ========================================
+     TYPOGRAPHY - Font Families
+     ======================================== */
+  --font-primary: 'Poppins', 'Inter', 'Roboto', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-monospace: 'Courier New', 'Courier', monospace;
+
+  /* ========================================
+     TYPOGRAPHY - Font Sizes
+     ======================================== */
+  --text-title: 48px;         /* Title: Poppins Bold */
+  --text-subheading: 28px;    /* Subheadings: Poppins Light-Bold */
+  --text-body: 16px;          /* Body: Poppins Light Regular */
+
+  /* Legacy sizes (kept for backwards compatibility) */
+  --text-hero: 72px;
+  --text-h1: 48px;
+  --text-h2: 36px;
+  --text-h3: 28px;
+  --text-h4: 24px;
+  --text-body-large: 20px;
+  --text-body-old: 16px;
+  --text-small: 14px;
+  --text-tiny: 12px;
+
+  /* ========================================
+     TYPOGRAPHY - Font Weights
+     ======================================== */
+  --weight-light: 300;        /* Poppins Light */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;         /* Poppins Bold */
+  --weight-extrabold: 800;
+
+  /* ========================================
+     TYPOGRAPHY - Line Heights
+     ======================================== */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.8;
+
+  /* ========================================
+     SPACING - Base Scale (8px grid)
+     ======================================== */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ========================================
+     LAYOUT - Container Widths
+     ======================================== */
+  --max-width: 1440px;
+  --content-width: 1200px;
+  --narrow-width: 800px;
+
+  /* ========================================
+     LAYOUT - Breakpoints
+     ======================================== */
+  --breakpoint-mobile: 320px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1440px;
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+  --radius-full: 50px;
+  --radius-circle: 50%;
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-button-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-button-active: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+  --transition-fast: 0.15s;
+  --transition-base: 0.3s;
+  --transition-slow: 0.5s;
+
+  /* ========================================
+     EASING FUNCTIONS
+     ======================================== */
+  --ease-default: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0.0, 1, 1);
+  --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+}
+
+/* ========================================
+   BASE STYLES - Optional Reset
+   ======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-light);
+  line-height: var(--line-height-normal);
+  color: var(--primary-text);
+  background-color: var(--primary-background);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Typography Utilities */
+.text-title { font-size: var(--text-title); font-weight: var(--weight-bold); font-family: var(--font-heading); line-height: var(--line-height-tight); }
+.text-subheading { font-size: var(--text-subheading); font-weight: var(--weight-bold); font-family: var(--font-heading); line-height: var(--line-height-tight); }
+.text-body { font-size: var(--text-body); font-weight: var(--weight-light); }
+.text-hero { font-size: var(--text-hero); font-weight: var(--weight-bold); line-height: var(--line-height-tight); }
+.text-h1 { font-size: var(--text-h1); font-weight: var(--weight-bold); }
+.text-h2 { font-size: var(--text-h2); font-weight: var(--weight-bold); }
+.text-h3 { font-size: var(--text-h3); font-weight: var(--weight-semibold); }
+.text-h4 { font-size: var(--text-h4); font-weight: var(--weight-semibold); }
+.text-body-large { font-size: var(--text-body-large); }
+.text-small { font-size: var(--text-small); }
+.text-tiny { font-size: var(--text-tiny); }
+
+/* Font Weight Utilities */
+.font-regular { font-weight: var(--weight-regular); }
+.font-medium { font-weight: var(--weight-medium); }
+.font-semibold { font-weight: var(--weight-semibold); }
+.font-bold { font-weight: var(--weight-bold); }
+.font-extrabold { font-weight: var(--weight-extrabold); }
+
+/* Color Utilities */
+.bg-primary { background-color: var(--primary-background); }
+.bg-bubble { background-color: var(--primary-bubble); }
+.text-primary { color: var(--primary-text); }
+.text-bubble { color: var(--primary-bubble-text); }
+
+/* Legacy colors */
+.bg-yellow { background-color: var(--primary-yellow); }
+.bg-dark { background-color: var(--primary-dark); }
+.bg-white { background-color: var(--primary-white); }
+.bg-beige { background-color: var(--secondary-beige); }
+.bg-cream { background-color: var(--secondary-cream); }
+
+.text-yellow { color: var(--primary-yellow); }
+.text-dark { color: var(--primary-dark); }
+.text-white { color: var(--primary-white); }
+
+/* Spacing Utilities */
+.p-xs { padding: var(--space-xs); }
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.p-lg { padding: var(--space-lg); }
+.p-xl { padding: var(--space-xl); }
+.p-2xl { padding: var(--space-2xl); }
+.p-3xl { padding: var(--space-3xl); }
+
+.m-xs { margin: var(--space-xs); }
+.m-sm { margin: var(--space-sm); }
+.m-md { margin: var(--space-md); }
+.m-lg { margin: var(--space-lg); }
+.m-xl { margin: var(--space-xl); }
+.m-2xl { margin: var(--space-2xl); }
+.m-3xl { margin: var(--space-3xl); }
+
+/* Border Radius Utilities */
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-3xl { border-radius: var(--radius-3xl); }
+.rounded-full { border-radius: var(--radius-full); }
+.rounded-circle { border-radius: var(--radius-circle); }
+
+/* Shadow Utilities */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+/* ========================================
+   COMPONENT CLASSES
+   ======================================== */
+
+/* Button - Primary */
+.btn-primary {
+  background: var(--primary-white);
+  color: var(--primary-dark);
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-primary);
+  border: none;
+  box-shadow: var(--shadow-button);
+  transition: all var(--transition-base) var(--ease-default);
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  min-height: 44px; /* Accessibility touch target */
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-button-active);
+}
+
+.btn-primary:disabled {
+  background: var(--secondary-beige);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Button - Secondary */
+.btn-secondary {
+  background: transparent;
+  color: var(--primary-dark);
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  font-family: var(--font-primary);
+  border: 2px solid var(--primary-dark);
+  transition: all var(--transition-base) var(--ease-default);
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  min-height: 44px;
+}
+
+.btn-secondary:hover {
+  background: var(--primary-dark);
+  color: var(--primary-white);
+}
+
+/* Card */
+.card {
+  background: var(--primary-bubble);
+  color: var(--primary-bubble-text);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Input */
+.input {
+  background: var(--primary-white);
+  border: 2px solid var(--secondary-beige);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: var(--text-body);
+  font-family: var(--font-primary);
+  color: var(--primary-dark);
+  transition: border-color var(--transition-base) var(--ease-default);
+  width: 100%;
+}
+
+.input:focus {
+  border-color: var(--primary-dark);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(45, 42, 38, 0.1);
+}
+
+.input:invalid,
+.input.error {
+  border-color: var(--error-red);
+}
+
+/* Label */
+.label {
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--primary-dark);
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+/* Container */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-2xl);
+}
+
+.container-narrow {
+  max-width: var(--narrow-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+@media (max-width: 767px) {
+  .text-hero { font-size: 48px; }
+  .text-h1 { font-size: 36px; }
+  .text-h2 { font-size: 28px; }
+  .container { padding: 0 var(--space-md); }
+  .card { padding: var(--space-md); border-radius: var(--radius-xl); }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .text-hero { font-size: 56px; }
+  .text-h1 { font-size: 40px; }
+  .container { padding: 0 var(--space-xl); }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

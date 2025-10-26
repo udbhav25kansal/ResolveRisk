@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@import "./design-system.css";
+
+/* ResolveRisk™ Global Styles */
+/* Following DESIGN_GUIDE.md specifications */
+
+/* New color scheme */
+:root {
+  --background: var(--primary-background);
+  --foreground: var(--primary-text);
+}
+
+@theme inline {
+  --color-background: var(--primary-background);
+  --color-foreground: var(--primary-text);
+  --font-sans: var(--font-primary);
+  --font-mono: var(--font-monospace);
+}
+
+/* Override body to use our design system */
+body {
+  background: var(--primary-background);
+  color: var(--primary-text);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-light);
+  line-height: var(--line-height-normal);
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Accessibility - respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Professional Celebration Animations */
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-20vh);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-float-up {
+  animation: float-up 6s ease-in-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
