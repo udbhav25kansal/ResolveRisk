@@ -1,26 +1,41 @@
 @import "tailwindcss";
+@import "./design-system.css";
 
+/* ResolveRisk™ Global Styles */
+/* Following DESIGN_GUIDE.md specifications */
+
+/* Remove default dark mode - we use our yellow theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--primary-yellow);
+  --foreground: var(--primary-dark);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--primary-yellow);
+  --color-foreground: var(--primary-dark);
+  --font-sans: var(--font-primary);
+  --font-mono: var(--font-monospace);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Override body to use our design system */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--primary-yellow);
+  color: var(--primary-dark);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  line-height: var(--line-height-normal);
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Accessibility - respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
