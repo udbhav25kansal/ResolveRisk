@@ -25,6 +25,32 @@ export default function Home() {
   const [isMediationPrepModalOpen, setIsMediationPrepModalOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<Array<{ role: 'user' | 'bot', message: string }>>([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
+  const [isMediationNotesModalOpen, setIsMediationNotesModalOpen] = useState(false);
+  const [mediationNotes, setMediationNotes] = useState('');
+  const [prepareSettlement, setPrepareSettlement] = useState<'yes' | 'no' | null>(null);
+  const [isPhase6Complete, setIsPhase6Complete] = useState(false);
+  const [settlementAccepted, setSettlementAccepted] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [isSettlementApprovalModalOpen, setIsSettlementApprovalModalOpen] = useState(false);
+  const [isPhase7Complete, setIsPhase7Complete] = useState(false);
+  const [isPhase8Complete, setIsPhase8Complete] = useState(false);
+  const [isSettlementPDFModalOpen, setIsSettlementPDFModalOpen] = useState(false);
+  const [isSettlementEmailModalOpen, setIsSettlementEmailModalOpen] = useState(false);
+  const [isPhase9Complete, setIsPhase9Complete] = useState(false);
+  const [isTribunalEmailModalOpen, setIsTribunalEmailModalOpen] = useState(false);
+  const [isPhase11Complete, setIsPhase11Complete] = useState(false);
+
+  // Settlement Offer Form State
+  const [recommendedPrecedent, setRecommendedPrecedent] = useState('');
+  const [agreedMediation, setAgreedMediation] = useState('');
+  const [injuryToDignity, setInjuryToDignity] = useState('5000');
+  const [wageLoss, setWageLoss] = useState('7000');
+  const [separateDamages, setSeparateDamages] = useState<'yes' | 'no' | null>(null);
+  const [auditCompleted, setAuditCompleted] = useState<'yes' | 'no' | null>(null);
+  const [auditDetails, setAuditDetails] = useState('');
+  const [policyAuditCompleted, setPolicyAuditCompleted] = useState<'yes' | 'no' | null>(null);
+  const [dutyToAccommodate, setDutyToAccommodate] = useState('');
+  const [discriminationLanguage, setDiscriminationLanguage] = useState<'yes' | 'no' | null>(null);
 
   const handleFileSelect = (file: File) => {
     setUploadedFile(file);
@@ -85,10 +111,76 @@ export default function Home() {
   };
 
   const handleMediation = () => {
-    // For now, just mark as complete when clicked
-    // In future, this can open a modal or navigate to a mediation page
-    console.log('Mediation clicked');
+    // Open mediation notes modal
+    setIsMediationNotesModalOpen(true);
+  };
+
+  const handleSaveMediationNotes = () => {
     setIsPhase5Complete(true);
+    setIsMediationNotesModalOpen(false);
+  };
+
+  const handlePrepareSettlement = (choice: 'yes' | 'no') => {
+    setPrepareSettlement(choice);
+    setIsPhase6Complete(true);
+  };
+
+  const handleSettlementResponse = (response: 'accepted' | 'rejected') => {
+    if (response === 'accepted') {
+      setSettlementAccepted(true);
+      setShowCelebration(true);
+      // Hide celebration after 5 seconds
+      setTimeout(() => setShowCelebration(false), 5000);
+    }
+  };
+
+  const handlePrepareSettlementOffer = () => {
+    // Open settlement offer form modal
+    setIsSettlementApprovalModalOpen(true);
+  };
+
+  const handleSettlementOfferSubmit = () => {
+    // Mark phase 7 as complete and close modal
+    setIsPhase7Complete(true);
+    setIsSettlementApprovalModalOpen(false);
+  };
+
+  const handleApproveSettlementLetter = () => {
+    // Open settlement PDF modal
+    setIsSettlementPDFModalOpen(true);
+  };
+
+  const handleSettlementPDFSaveDraft = () => {
+    console.log('Saving settlement offer letter as draft...');
+    setIsSettlementPDFModalOpen(false);
+  };
+
+  const handleSettlementPDFApprove = () => {
+    console.log('Settlement offer letter approved');
+    setIsPhase8Complete(true);
+    setIsSettlementPDFModalOpen(false);
+  };
+
+  const handleDeliverSettlementOffer = () => {
+    // Open settlement email composer modal
+    setIsSettlementEmailModalOpen(true);
+  };
+
+  const handleSettlementEmailSend = () => {
+    // Close email modal and mark phase complete
+    setIsSettlementEmailModalOpen(false);
+    setIsPhase9Complete(true);
+  };
+
+  const handleNotifyTribunal = () => {
+    // Open tribunal email composer modal
+    setIsTribunalEmailModalOpen(true);
+  };
+
+  const handleTribunalEmailSend = () => {
+    // Close email modal and mark phase complete
+    setIsTribunalEmailModalOpen(false);
+    setIsPhase11Complete(true);
   };
 
   const handleAskBot = () => {
@@ -109,6 +201,64 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-secondary-cream">
+      {/* Celebration Balloons */}
+      {showCelebration && (
+        <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+          {/* Balloons */}
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute animate-float-up"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`,
+                animationDuration: `${3 + Math.random() * 2}s`
+              }}
+            >
+              <div
+                className="w-12 h-16 rounded-full"
+                style={{
+                  backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'][Math.floor(Math.random() * 6)],
+                  boxShadow: 'inset -10px -10px 0 rgba(0,0,0,0.07)'
+                }}
+              >
+                <div className="absolute bottom-0 left-1/2 w-px h-8 bg-gray-400 transform -translate-x-1/2"></div>
+              </div>
+            </div>
+          ))}
+
+          {/* Confetti */}
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={`confetti-${i}`}
+              className="absolute animate-confetti"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: '-10px',
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 2}s`
+              }}
+            >
+              <div
+                className="w-2 h-2"
+                style={{
+                  backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'][Math.floor(Math.random() * 6)],
+                  transform: `rotate(${Math.random() * 360}deg)`
+                }}
+              />
+            </div>
+          ))}
+
+          {/* Congratulations Message */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-auto">
+            <div className="bg-white rounded-3xl p-8 shadow-2xl border-4 border-primary-yellow animate-bounce-in">
+              <h2 className="text-6xl font-bold text-primary-dark mb-4">🎉 Congratulations! 🎉</h2>
+              <p className="text-2xl text-primary-dark/80">Settlement Accepted!</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="bg-primary-yellow py-12 px-6">
         <div className="max-w-4xl mx-auto">
@@ -251,70 +401,202 @@ export default function Home() {
                 <h2 className="text-2xl font-bold text-primary-dark">
                   Mediation
                 </h2>
-                <p className="text-primary-dark/70 mt-2">{mediationDate}</p>
+                {isPhase3Complete && (
+                  <p className="text-primary-dark/70 mt-2">{mediationDate}</p>
+                )}
               </Card>
             </div>
           </div>
 
-          {/* Phase 6: Settlement Offer Writing */}
+          {/* Phase 6: Prepare Settlement */}
           <div className="relative mb-8">
-            <div className="absolute left-4 w-8 h-8 rounded-full bg-primary-dark border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-white text-sm font-bold">6</span>
+            <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
+              isPhase6Complete ? 'bg-primary-dark' : 'bg-secondary-beige'
+            }`}>
+              {isPhase6Complete ? (
+                <span className="text-green-500 text-xl font-bold">✓</span>
+              ) : (
+                <span className="text-primary-dark text-sm font-bold">6</span>
+              )}
             </div>
 
             <div className="ml-20">
-              <Card padding="large" rounded="large" className="opacity-60">
+              <Card
+                padding="large"
+                rounded="large"
+                className={`${isPhase5Complete ? '' : 'opacity-60'}`}
+              >
+                <h2 className="text-2xl font-bold text-primary-dark mb-4">
+                  Prepare Settlement
+                </h2>
+                <p className="text-primary-dark/70 mb-4">Do you want to prepare a settlement offer?</p>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="prepareSettlement"
+                      checked={prepareSettlement === 'yes'}
+                      onChange={() => handlePrepareSettlement('yes')}
+                      disabled={!isPhase5Complete}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">Yes</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="prepareSettlement"
+                      checked={prepareSettlement === 'no'}
+                      onChange={() => handlePrepareSettlement('no')}
+                      disabled={!isPhase5Complete}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">No</span>
+                  </label>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Phase 7: Prepare Settlement Offer */}
+          <div className="relative mb-8">
+            <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
+              isPhase7Complete ? 'bg-primary-dark' : 'bg-secondary-beige'
+            }`}>
+              {isPhase7Complete ? (
+                <span className="text-green-500 text-xl font-bold">✓</span>
+              ) : (
+                <span className="text-primary-dark text-sm font-bold">7</span>
+              )}
+            </div>
+
+            <div className="ml-20">
+              <Card
+                padding="large"
+                rounded="large"
+                className={`${prepareSettlement === 'yes' ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
+                onClick={() => prepareSettlement === 'yes' && handlePrepareSettlementOffer()}
+              >
                 <h2 className="text-2xl font-bold text-primary-dark">
-                  Settlement Offer Writing
+                  Prepare Settlement Offer
                 </h2>
               </Card>
             </div>
           </div>
 
-          {/* Phase 7: Deliver Offer */}
+          {/* Phase 8: Approve Settlement Offer Letter */}
           <div className="relative mb-8">
-            <div className="absolute left-4 w-8 h-8 rounded-full bg-gray-300 border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-primary-dark text-sm font-bold">7</span>
+            <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
+              isPhase8Complete ? 'bg-primary-dark' : 'bg-secondary-beige'
+            }`}>
+              {isPhase8Complete ? (
+                <span className="text-green-500 text-xl font-bold">✓</span>
+              ) : (
+                <span className="text-primary-dark text-sm font-bold">8</span>
+              )}
             </div>
 
             <div className="ml-20">
-              <Card padding="large" rounded="large" className="opacity-60">
+              <Card
+                padding="large"
+                rounded="large"
+                className={`${isPhase7Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
+                onClick={() => isPhase7Complete && handleApproveSettlementLetter()}
+              >
                 <h2 className="text-2xl font-bold text-primary-dark">
-                  Deliver Settlement Offer
+                  Approve Settlement Offer Letter
                 </h2>
               </Card>
             </div>
           </div>
 
-          {/* Phase 8: Settlement Rejected */}
+          {/* Phase 9: Deliver Settlement Offer Letter */}
+          <div className="relative mb-8">
+            <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
+              isPhase9Complete ? 'bg-primary-dark' : 'bg-gray-300'
+            }`}>
+              {isPhase9Complete ? (
+                <span className="text-green-500 text-xl font-bold">✓</span>
+              ) : (
+                <span className="text-primary-dark text-sm font-bold">9</span>
+              )}
+            </div>
+
+            <div className="ml-20">
+              <Card
+                padding="large"
+                rounded="large"
+                className={`${isPhase8Complete ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
+                onClick={() => isPhase8Complete && handleDeliverSettlementOffer()}
+              >
+                <h2 className="text-2xl font-bold text-primary-dark">
+                  Deliver Settlement Offer Letter
+                </h2>
+              </Card>
+            </div>
+          </div>
+
+          {/* Phase 10: Settlement Response */}
           <div className="relative mb-8">
             <div className="absolute left-4 w-8 h-8 rounded-full bg-accent-warm border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-white text-sm font-bold">8</span>
+              <span className="text-white text-sm font-bold">10</span>
             </div>
 
             <div className="ml-20">
-              <Card padding="large" rounded="large" className="border-2 border-accent-warm opacity-60">
+              <Card padding="large" rounded="large" className="border-2 border-accent-warm">
                 <h2 className="text-2xl font-bold text-primary-dark mb-4">
-                  Settlement Rejected
+                  Settlement Response
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="border-2 border-secondary-beige rounded-xl p-4">
-                    <h3 className="font-semibold text-primary-dark">Application to Dismiss</h3>
+                  <div
+                    className="border-2 border-secondary-beige rounded-xl p-4 cursor-pointer hover:bg-green-50 hover:border-green-400 transition-colors"
+                    onClick={() => handleSettlementResponse('accepted')}
+                  >
+                    <h3 className="font-semibold text-primary-dark">Accepted</h3>
                   </div>
 
-                  <div className="border-2 border-secondary-beige rounded-xl p-4">
-                    <h3 className="font-semibold text-primary-dark">Proceed to Disclosure</h3>
+                  <div
+                    className="border-2 border-secondary-beige rounded-xl p-4 cursor-pointer hover:bg-red-50 hover:border-red-400 transition-colors"
+                    onClick={() => handleSettlementResponse('rejected')}
+                  >
+                    <h3 className="font-semibold text-primary-dark">Rejected</h3>
                   </div>
                 </div>
               </Card>
             </div>
           </div>
 
-          {/* Phase 9: Disclosure Preparation */}
+          {/* Phase 11: Notify Tribunal */}
+          <div className="relative mb-8">
+            <div className={`absolute left-4 w-8 h-8 rounded-full border-4 border-white shadow-lg flex items-center justify-center ${
+              isPhase11Complete ? 'bg-primary-dark' : 'bg-secondary-beige'
+            }`}>
+              {isPhase11Complete ? (
+                <span className="text-green-500 text-xl font-bold">✓</span>
+              ) : (
+                <span className="text-primary-dark text-sm font-bold">11</span>
+              )}
+            </div>
+
+            <div className="ml-20">
+              <Card
+                padding="large"
+                rounded="large"
+                className={`${settlementAccepted ? 'cursor-pointer hover:shadow-lg transition-shadow' : 'opacity-60'}`}
+                onClick={() => settlementAccepted && handleNotifyTribunal()}
+              >
+                <h2 className="text-2xl font-bold text-primary-dark">
+                  Notify Tribunal
+                </h2>
+              </Card>
+            </div>
+          </div>
+
+          {/* Phase 12: Disclosure Preparation */}
           <div className="relative mb-8">
             <div className="absolute left-4 w-8 h-8 rounded-full bg-secondary-beige border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-primary-dark text-sm font-bold">9</span>
+              <span className="text-primary-dark text-sm font-bold">12</span>
             </div>
 
             <div className="ml-20">
@@ -326,10 +608,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Phase 10: Disclosure Submission */}
+          {/* Phase 13: Disclosure Submission */}
           <div className="relative mb-8">
             <div className="absolute left-4 w-8 h-8 rounded-full bg-gray-300 border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-primary-dark text-sm font-bold">10</span>
+              <span className="text-primary-dark text-sm font-bold">13</span>
             </div>
 
             <div className="ml-20">
@@ -341,10 +623,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Phase 11: Hearing Preparation */}
+          {/* Phase 14: Hearing Preparation */}
           <div className="relative mb-8">
             <div className="absolute left-4 w-8 h-8 rounded-full bg-secondary-beige border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-primary-dark text-sm font-bold">11</span>
+              <span className="text-primary-dark text-sm font-bold">14</span>
             </div>
 
             <div className="ml-20">
@@ -356,10 +638,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Phase 12: The Hearing */}
+          {/* Phase 15: The Hearing */}
           <div className="relative mb-8">
             <div className="absolute left-4 w-8 h-8 rounded-full bg-gray-300 border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-primary-dark text-sm font-bold">12</span>
+              <span className="text-primary-dark text-sm font-bold">15</span>
             </div>
 
             <div className="ml-20">
@@ -558,13 +840,13 @@ Please see attached my Complaint Response Form for HRT 15916.`}
 
             {/* Right Column - AI Assistant */}
             <div className="lg:col-span-1">
-              <div className="bg-primary-dark rounded-3xl p-6 h-full">
-                <h3 className="text-2xl font-bold text-white mb-2">AI Assistant</h3>
-                <p className="text-sm text-white/80 mb-4">Ask anything about mediation preparation</p>
+              <div className="bg-gray-800 rounded-3xl p-6 h-full border-2 border-gray-700">
+                <h3 className="text-2xl font-bold text-gray-100 mb-2">AI Assistant</h3>
+                <p className="text-sm text-gray-300 mb-4">Ask anything about mediation preparation</p>
 
                 {/* Chat Messages */}
                 {chatMessages.length > 0 && (
-                  <div className="bg-white/10 rounded-2xl p-3 mb-4 max-h-64 overflow-y-auto space-y-2">
+                  <div className="bg-gray-700/50 rounded-2xl p-3 mb-4 max-h-64 overflow-y-auto space-y-2 border border-gray-600">
                     {chatMessages.map((msg, index) => (
                       <div
                         key={index}
@@ -592,11 +874,11 @@ Please see attached my Complaint Response Form for HRT 15916.`}
                     onChange={(e) => setCurrentQuestion(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAskBot()}
                     placeholder="Type your question..."
-                    className="w-full px-4 py-3 bg-white/10 text-white placeholder-white/60 rounded-xl border-2 border-white/20 focus:border-white/40 focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3 bg-gray-700 text-gray-100 placeholder-gray-400 rounded-xl border-2 border-gray-600 focus:border-gray-500 focus:outline-none transition-colors text-sm"
                   />
                   <button
                     onClick={handleAskBot}
-                    className="w-full px-5 py-3 bg-white text-primary-dark rounded-full font-semibold hover:bg-white/90 transition-colors text-sm"
+                    className="w-full px-5 py-3 bg-white text-gray-800 rounded-full font-semibold hover:bg-gray-100 transition-colors text-sm"
                   >
                     Ask
                   </button>
@@ -610,12 +892,361 @@ Please see attached my Complaint Response Form for HRT 15916.`}
             <Button
               variant="secondary"
               size="large"
-              onClick={() => setIsMediationPrepModalOpen(false)}
+              onClick={handleMediationPrepComplete}
             >
               Close
             </Button>
           </div>
         </div>
+      </Modal>
+
+      {/* Mediation Notes Modal */}
+      <Modal
+        isOpen={isMediationNotesModalOpen}
+        onClose={() => setIsMediationNotesModalOpen(false)}
+        title="Mediation Notes"
+        size="large"
+      >
+        <div className="p-8">
+          <h2 className="text-4xl font-bold text-primary-dark mb-4">Add Mediation Notes</h2>
+          <p className="text-lg text-primary-dark/70 mb-6">
+            Record your notes from the mediation session held on {mediationDate}
+          </p>
+
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-primary-dark mb-2">
+              Notes
+            </label>
+            <textarea
+              value={mediationNotes}
+              onChange={(e) => setMediationNotes(e.target.value)}
+              placeholder="Enter your mediation notes here..."
+              rows={12}
+              className="w-full px-4 py-3 border-2 border-secondary-beige rounded-2xl focus:border-primary-dark focus:outline-none transition-colors resize-none"
+            />
+          </div>
+
+          <div className="flex justify-end gap-4 pt-4 border-t border-primary-dark/10">
+            <Button
+              variant="secondary"
+              size="large"
+              onClick={() => setIsMediationNotesModalOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              size="large"
+              onClick={handleSaveMediationNotes}
+            >
+              Save Notes
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Settlement Offer Form Modal */}
+      <Modal
+        isOpen={isSettlementApprovalModalOpen}
+        onClose={() => setIsSettlementApprovalModalOpen(false)}
+        title="Prepare Settlement Offer"
+        size="large"
+      >
+        <div className="p-8 max-h-[80vh] overflow-y-auto">
+          <h2 className="text-4xl font-bold text-primary-dark mb-4">Prepare Settlement Offer</h2>
+          <p className="text-lg text-primary-dark/70 mb-8">
+            Complete the settlement offer details below
+          </p>
+
+          {/* Monetary Section */}
+          <div className="mb-8 p-6 bg-primary-yellow/20 rounded-2xl">
+            <h3 className="text-2xl font-bold text-primary-dark mb-4">Monetary</h3>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-2">
+                  Recommended based on precedent
+                </label>
+                <input
+                  type="text"
+                  value={recommendedPrecedent}
+                  onChange={(e) => setRecommendedPrecedent(e.target.value)}
+                  placeholder="Enter details..."
+                  className="w-full px-4 py-3 border-2 border-secondary-beige rounded-xl focus:border-primary-dark focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-2">
+                  Agreed upon during mediation
+                </label>
+                <input
+                  type="text"
+                  value={agreedMediation}
+                  onChange={(e) => setAgreedMediation(e.target.value)}
+                  placeholder="Enter details..."
+                  className="w-full px-4 py-3 border-2 border-secondary-beige rounded-xl focus:border-primary-dark focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-2">
+                  How much for Injury to Dignity?
+                </label>
+                <input
+                  type="text"
+                  value={injuryToDignity}
+                  onChange={(e) => setInjuryToDignity(e.target.value)}
+                  placeholder="5000"
+                  className="w-full px-4 py-3 border-2 border-secondary-beige rounded-xl focus:border-primary-dark focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-2">
+                  How much for Wage Loss?
+                </label>
+                <input
+                  type="text"
+                  value={wageLoss}
+                  onChange={(e) => setWageLoss(e.target.value)}
+                  placeholder="7000"
+                  className="w-full px-4 py-3 border-2 border-secondary-beige rounded-xl focus:border-primary-dark focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-3">
+                  Does your settlement offer separate the damages related to discrimination under the Code from all other required payments?
+                </label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="separateDamages"
+                      checked={separateDamages === 'yes'}
+                      onChange={() => setSeparateDamages('yes')}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">Yes</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="separateDamages"
+                      checked={separateDamages === 'no'}
+                      onChange={() => setSeparateDamages('no')}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Audit Section */}
+          <div className="mb-8 p-6 bg-secondary-beige/30 rounded-2xl">
+            <h3 className="text-2xl font-bold text-primary-dark mb-4">Audit</h3>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-3">
+                  Completed?
+                </label>
+                <div className="flex gap-4 mb-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="auditCompleted"
+                      checked={auditCompleted === 'yes'}
+                      onChange={() => setAuditCompleted('yes')}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">Yes</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="auditCompleted"
+                      checked={auditCompleted === 'no'}
+                      onChange={() => setAuditCompleted('no')}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">No</span>
+                  </label>
+                </div>
+              </div>
+
+              {auditCompleted === 'yes' && (
+                <div>
+                  <label className="block text-sm font-medium text-primary-dark mb-2">
+                    Provide details of the adequacy of the internal review
+                  </label>
+                  <textarea
+                    value={auditDetails}
+                    onChange={(e) => setAuditDetails(e.target.value)}
+                    placeholder="Enter audit details..."
+                    rows={4}
+                    className="w-full px-4 py-3 border-2 border-secondary-beige rounded-xl focus:border-primary-dark focus:outline-none transition-colors resize-none"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-3">
+                  Audit of policy and dismissal procedures completed?
+                </label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="policyAuditCompleted"
+                      checked={policyAuditCompleted === 'yes'}
+                      onChange={() => setPolicyAuditCompleted('yes')}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">Yes</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="policyAuditCompleted"
+                      checked={policyAuditCompleted === 'no'}
+                      onChange={() => setPolicyAuditCompleted('no')}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-primary-dark font-medium">No</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-primary-dark mb-2">
+                  How did you address: Obligation with duty to accommodate an employee's disability to the point of undue hardship under the Human Rights Code
+                </label>
+                <textarea
+                  value={dutyToAccommodate}
+                  onChange={(e) => setDutyToAccommodate(e.target.value)}
+                  placeholder="Enter your response..."
+                  rows={4}
+                  className="w-full px-4 py-3 border-2 border-secondary-beige rounded-xl focus:border-primary-dark focus:outline-none transition-colors resize-none"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Address Discrimination Section */}
+          <div className="mb-8 p-6 bg-accent-warm/10 rounded-2xl">
+            <h3 className="text-2xl font-bold text-primary-dark mb-4">Address Discrimination</h3>
+
+            <div>
+              <label className="block text-sm font-medium text-primary-dark mb-3">
+                Included language confirming that the alleged discrimination will stop and not be repeated in the future
+              </label>
+              <div className="flex gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="discriminationLanguage"
+                    checked={discriminationLanguage === 'yes'}
+                    onChange={() => setDiscriminationLanguage('yes')}
+                    className="w-5 h-5"
+                  />
+                  <span className="text-primary-dark font-medium">Yes</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="discriminationLanguage"
+                    checked={discriminationLanguage === 'no'}
+                    onChange={() => setDiscriminationLanguage('no')}
+                    className="w-5 h-5"
+                  />
+                  <span className="text-primary-dark font-medium">No</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-4 pt-6 border-t border-primary-dark/10">
+            <Button
+              variant="secondary"
+              size="large"
+              onClick={() => setIsSettlementApprovalModalOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              size="large"
+              onClick={handleSettlementOfferSubmit}
+            >
+              Generate Offer Letter
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Settlement Offer Letter PDF Viewer Modal */}
+      <Modal
+        isOpen={isSettlementPDFModalOpen}
+        onClose={() => setIsSettlementPDFModalOpen(false)}
+        title="Approve Settlement Offer Letter"
+        size="large"
+      >
+        <div className="h-full">
+          <PDFViewer
+            pdfUrl="/Settlement Offer Letter (1).pdf#toolbar=1&view=FitH"
+            onSaveDraft={handleSettlementPDFSaveDraft}
+            onApprove={handleSettlementPDFApprove}
+          />
+        </div>
+      </Modal>
+
+      {/* Deliver Settlement Offer Email Modal */}
+      <Modal
+        isOpen={isSettlementEmailModalOpen}
+        onClose={() => setIsSettlementEmailModalOpen(false)}
+        title=""
+        size="large"
+      >
+        <EmailComposer
+          to="steven.wang@lawfirm.com"
+          subject="15916 HRT Complaint Settlement Agreement"
+          body={`Mr. Wang,
+
+Attached is a Settle Offer Letter for your Complainant, Ms. Travis on HRT Complaint 15916 on with agreed upon terms post mediation.
+
+Please review and return a signed copy.
+
+Thanks.`}
+          attachmentName="Settlement Offer Letter (1).pdf"
+          onSend={handleSettlementEmailSend}
+          onClose={() => setIsSettlementEmailModalOpen(false)}
+        />
+      </Modal>
+
+      {/* Notify Tribunal Email Modal */}
+      <Modal
+        isOpen={isTribunalEmailModalOpen}
+        onClose={() => setIsTribunalEmailModalOpen(false)}
+        title=""
+        size="large"
+      >
+        <EmailComposer
+          to="BCHumanRightsTribunal@gov.bc.ca"
+          subject="15916 HRT Complaint Settlement Agreement"
+          body={`Human Rights Tribunal,
+
+A settlement offer was accepted by Complainant, Ms. Travis on HRT Complaint 15916 on January 4, 2025. Attached is the signed copy.
+
+Please provide confirmation that this closes the complaint with no further action(s).
+
+Thanks.`}
+          attachmentName="Settlement Offer Letter (1).pdf"
+          onSend={handleTribunalEmailSend}
+          onClose={() => setIsTribunalEmailModalOpen(false)}
+        />
       </Modal>
     </div>
   );
