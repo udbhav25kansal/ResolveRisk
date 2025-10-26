@@ -214,13 +214,6 @@ export default function ComplaintHub() {
       {/* Hero Section */}
       <section className="bg-primary-yellow py-12 px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-4">
-            <Link href="/">
-              <Button variant="secondary" size="medium">
-                ← Back to Home
-              </Button>
-            </Link>
-          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-primary-dark mb-4">
             Complaint Summary - Case #{complaintData.caseNumber}
           </h1>
@@ -474,16 +467,6 @@ export default function ComplaintHub() {
         </div>
       </section>
 
-      {/* Back to Home */}
-      <section className="bg-primary-yellow py-12 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <Link href="/">
-            <Button size="large">
-              Back to Home
-            </Button>
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }

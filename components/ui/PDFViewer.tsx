@@ -20,15 +20,21 @@ export function PDFViewer({ pdfUrl, onSaveDraft, onApprove }: PDFViewerProps) {
 
   return (
     <div className="flex flex-col h-full p-4">
-      {/* PDF Viewer - Using iframe for native browser editing support */}
+      {/* PDF Viewer - Using object tag for better PDF embedding */}
       <div className="flex-1 overflow-hidden mb-4 bg-gray-100 rounded">
-        <iframe
-          ref={iframeRef}
-          src={pdfUrl}
+        <object
+          data={pdfUrl}
+          type="application/pdf"
           className="w-full h-full border-none"
-          title="Response Form PDF"
           style={{ minHeight: '70vh' }}
-        />
+        >
+          <embed
+            src={pdfUrl}
+            type="application/pdf"
+            className="w-full h-full"
+            style={{ minHeight: '70vh' }}
+          />
+        </object>
       </div>
 
       {/* Action Buttons */}

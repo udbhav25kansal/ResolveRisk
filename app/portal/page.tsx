@@ -26,7 +26,7 @@ export default function Home() {
             fontWeight: 'var(--weight-bold)',
             fontFamily: 'var(--font-heading)'
           }}>
-            Home
+            Hi, Tiffany
           </h1>
           <p className="italic" style={{
             fontSize: 'var(--text-subheading)',
@@ -34,7 +34,7 @@ export default function Home() {
             fontWeight: 'var(--weight-bold)',
             fontFamily: 'var(--font-heading)'
           }}>
-            Manage your HR complaints and resolutions
+            Manage your human rights complaints and resolutions
           </p>
         </div>
       </section>
@@ -97,7 +97,7 @@ export default function Home() {
                     </p>
 
                     <div className="flex gap-3">
-                      <Link href="/complaint-hub" className="flex-1">
+                      <Link href="/complaint-summary" className="flex-1">
                         <Button variant="secondary" size="medium" className="w-full">
                           View Details
                         </Button>
@@ -154,7 +154,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <Link href="/complaint-hub">
+                    <Link href="/complaint-summary">
                       <Button variant="secondary" size="medium" className="w-full">
                         View Archive
                       </Button>
@@ -196,21 +196,13 @@ export default function Home() {
           }}>
             Quick Links
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Link href="/resources">
               <Card padding="medium" rounded="large" className="text-center hover:shadow-xl transition-shadow cursor-pointer" style={{
                 backgroundColor: 'var(--primary-bubble)',
                 color: 'var(--primary-bubble-text)'
               }}>
                 <h3 className="font-semibold" style={{ fontSize: 'var(--text-body)', color: 'var(--primary-bubble-text)' }}>Resources</h3>
-              </Card>
-            </Link>
-            <Link href="/complaint-hub">
-              <Card padding="medium" rounded="large" className="text-center hover:shadow-xl transition-shadow cursor-pointer" style={{
-                backgroundColor: 'var(--primary-bubble)',
-                color: 'var(--primary-bubble-text)'
-              }}>
-                <h3 className="font-semibold" style={{ fontSize: 'var(--text-body)', color: 'var(--primary-bubble-text)' }}>Complaint Summary</h3>
               </Card>
             </Link>
             <Link href="/contact">

@@ -311,12 +311,23 @@ Address Discrimination:
           {/* Professional Success Message */}
           <div className="pointer-events-auto animate-scale-in">
             <div
-              className="rounded-3xl p-12 shadow-2xl max-w-2xl mx-4"
+              className="rounded-3xl p-12 shadow-2xl max-w-2xl mx-4 relative"
               style={{
                 backgroundColor: 'var(--primary-bubble)',
                 border: '1px solid rgba(255, 255, 255, 0.2)'
               }}
             >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowCelebration(false)}
+                className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full hover:bg-black/10 transition-colors"
+                style={{ color: 'var(--primary-bubble-text)' }}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
               {/* Success Icon */}
               <div className="flex justify-center mb-6">
                 <div
@@ -966,12 +977,174 @@ Address Discrimination:
         title="Response Form"
         size="large"
       >
-        <div className="h-full">
-          <PDFViewer
-            pdfUrl="/response-form.pdf#toolbar=1&view=FitH"
-            onSaveDraft={handlePDFSaveDraft}
-            onApprove={handlePDFApprove}
-          />
+        <div className="h-full overflow-y-auto bg-white">
+          {/* Mock PDF UI */}
+          <div className="max-w-4xl mx-auto p-8 bg-white" style={{ fontFamily: 'Arial, sans-serif' }}>
+            {/* Header */}
+            <div className="mb-8 pb-4 border-b-2 border-gray-300">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center">
+                    <svg className="w-10 h-10 text-white" viewBox="0 0 100 100">
+                      <polygon points="50,10 20,40 35,40 35,70 40,70 40,90 50,85 60,90 60,70 65,70 65,40 80,40" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h1 className="text-lg font-bold text-gray-800">British Columbia<br/>Human Rights<br/>Tribunal</h1>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-gray-600">1270 - 605 Robson Street</p>
+                  <p className="text-sm text-gray-600">Vancouver, BC V6B 5J3</p>
+                  <p className="text-sm text-gray-600 mt-2">Phone: (604) 775-2000</p>
+                  <p className="text-sm text-gray-600">Email: BCHumanRightsTribunal@gov.bc.ca</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Form Title */}
+            <h2 className="text-2xl font-bold text-center mb-6">Form 2 – Complaint Response</h2>
+
+            {/* Step 1 */}
+            <div className="mb-6 p-4 bg-gray-50 border border-gray-300 rounded">
+              <h3 className="text-lg font-bold mb-3">Step 1 - Party Information</h3>
+
+              <div className="mb-4">
+                <h4 className="font-semibold mb-2">Part A - Complainant</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm text-gray-600">Complainant's name:</label>
+                    <p className="font-medium">Evelyn Travis</p>
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-600">Tribunal Case Number:</label>
+                    <p className="font-medium">15916</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="font-semibold mb-2">Part B - Respondent #1</h4>
+                <div>
+                  <label className="text-sm text-gray-600">Name as it appears on the complaint form:</label>
+                  <p className="font-medium">The Penticton and Area Access Society</p>
+                </div>
+                <div className="mt-2 flex items-center gap-2">
+                  <input type="checkbox" checked disabled className="w-4 h-4" />
+                  <label className="text-sm">Ms.</label>
+                  <input type="checkbox" checked disabled className="w-4 h-4 ml-4" />
+                  <label className="text-sm">In decisions in addition to my legal name</label>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="font-semibold mb-2">Part C - Who will communicate with the Tribunal?</h4>
+                <div className="flex items-center gap-2 mb-2">
+                  <input type="checkbox" checked disabled className="w-4 h-4" />
+                  <label className="text-sm">A lawyer</label>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-2">
+                  <div>
+                    <label className="text-sm text-gray-600">First name:</label>
+                    <p className="font-medium">Katrina</p>
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-600">Last name:</label>
+                    <p className="font-medium">McKeown</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="mb-6 p-4 bg-gray-50 border border-gray-300 rounded">
+              <h3 className="text-lg font-bold mb-3">Step 2 - Response to alleged facts</h3>
+
+              <div className="mb-4">
+                <h4 className="font-semibold mb-2">Respondent #1, response to facts alleged in the complaint</h4>
+                <label className="text-sm text-gray-600 block mb-2">Facts you disagree with and your version of what happened:</label>
+                <div className="bg-white p-3 border border-gray-300 rounded text-sm leading-relaxed">
+                  <p className="mb-3">The Society held Ms. Travis's position open for three months (May 12, 2016, until August 10, 2016) without pay, demonstrating an initial effort to preserve her job while she recovered $7</p>
+
+                  <p className="mb-3">The Society allowed Ms. Travis to begin a GRTW program. From June 24 to July 15, 2016, she worked only four hours every other week for the Society, and from July 19, 2016, onward, she worked only one four-hour shift per week</p>
+
+                  <p>The Society paid Ms. Travis during this period (wages paid during GRTW, vacation pay, and severance pay).</p>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="font-semibold mb-2">Respondent #2, response to facts alleged in the complaint</h4>
+                <label className="text-sm text-gray-600 block mb-2">Facts you disagree with and your version of what happened:</label>
+                <div className="bg-white p-3 border border-gray-300 rounded text-sm leading-relaxed">
+                  <p className="mb-3">Existing Second Job: Ms. Travis had an existing second part-time job at the time of her accident and termination.</p>
+
+                  <p>Mitigation of Loss: Ms. Travis was able to mitigate her wage loss by increasing her hours at her second job after termination. The Society could use the existence of this stable alternative employment to argue she was less vulnerable upon termination compared to an individual with no other source of income.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="mb-6 p-4 bg-gray-50 border border-gray-300 rounded">
+              <h3 className="text-lg font-bold mb-3">Step 3 - No contravention of Code</h3>
+              <label className="text-sm text-gray-600 block mb-2">Explain why the facts alleged could not contravene the Code:</label>
+              <div className="bg-white p-3 border border-gray-300 rounded text-sm leading-relaxed">
+                <p className="mb-3"><strong>Inability to Secure a Return Date:</strong> The primary evidence is the statement cited in the termination letter: "... you said that you could not give us a return date yet." The Executive Director also told her, "... there's no guarantee what will happen to you in the next little while. Or I mean when you can come back or when you can't come back" ($$10$). This lack of certainty is critical for arguing undue hardship.</p>
+
+                <p className="mb-3"><strong>Operational Instability:</strong> The Society could use its operational needs, as cited in the termination letter, as evidence: "While this is understandable we need to provide more stability regarding our service" ($$10$).</p>
+
+                <p><strong>Mandate and Funding:</strong> The Society is a non-profit, grant-funded organization whose primary mandate is to alleviate poverty ($$4$). The Respondent argued that paying greater compensation would severely limit its mandate, potentially leading to one of its programs being shut down and taking resources away from the vulnerable population it serves ($$23$).</p>
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="mb-6 p-4 bg-gray-50 border border-gray-300 rounded">
+              <h3 className="text-lg font-bold mb-3">Step 5 - Other related proceedings</h3>
+              <div className="mb-2">
+                <label className="text-sm text-gray-600">Is there another proceeding about the same events?</label>
+                <div className="flex items-center gap-4 mt-1">
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" disabled className="w-4 h-4" />
+                    <label className="text-sm">yes</label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" checked disabled className="w-4 h-4" />
+                    <label className="text-sm">no</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Step 6 */}
+            <div className="mb-6 p-4 bg-gray-50 border border-gray-300 rounded">
+              <h3 className="text-lg font-bold mb-3">Step 6 - Mediation</h3>
+              <div className="mb-2">
+                <label className="text-sm text-gray-600">If the Tribunal has scheduled a mediation, confirm that you will attend:</label>
+                <div className="flex items-center gap-4 mt-1">
+                  <div className="flex items-center gap-2">
+                    <input type="checkbox" checked disabled className="w-4 h-4" />
+                    <label className="text-sm">yes, I will attend</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-end gap-4 pt-6 border-t border-gray-300 mt-8">
+              <Button
+                variant="secondary"
+                size="large"
+                onClick={handlePDFSaveDraft}
+              >
+                Save as draft
+              </Button>
+              <Button
+                size="large"
+                onClick={handlePDFApprove}
+              >
+                Approve
+              </Button>
+            </div>
+          </div>
         </div>
       </Modal>
 
@@ -1424,12 +1597,106 @@ Please see attached my Complaint Response Form for HRT 15916.`}
         title="Approve Settlement Offer Letter"
         size="large"
       >
-        <div className="h-full">
-          <PDFViewer
-            pdfUrl="/Settlement Offer Letter (1).pdf#toolbar=1&view=FitH"
-            onSaveDraft={handleSettlementPDFSaveDraft}
-            onApprove={handleSettlementPDFApprove}
-          />
+        <div className="h-full overflow-y-auto bg-white">
+          {/* Mock Settlement Agreement PDF */}
+          <div className="max-w-4xl mx-auto p-12 bg-white" style={{ fontFamily: 'Times New Roman, serif' }}>
+
+            {/* Title */}
+            <h1 className="text-3xl font-bold text-center mb-8">Agreement to Settle</h1>
+
+            {/* Parties */}
+            <div className="mb-6">
+              <p className="font-bold mb-2">BETWEEN:</p>
+              <p className="text-center mb-4">Evelyn Travis</p>
+              <p className="text-right font-bold mb-6">COMPLAINANT</p>
+
+              <p className="font-bold mb-2">AND:</p>
+              <p className="text-center mb-4">Penticton and Area Access Society</p>
+              <p className="text-right font-bold mb-6">RESPONDENT</p>
+            </div>
+
+            {/* Case Reference */}
+            <div className="mb-6">
+              <p className="font-bold">Re: A complaint under the Human Rights Code, R.S.B.C. 1996, c. 210 (as amended); Case Number: 15916</p>
+            </div>
+
+            {/* Agreement Terms */}
+            <div className="mb-6">
+              <p className="mb-4">The undersigned parties agree as follows:</p>
+
+              <ol className="space-y-4 ml-6" style={{ listStyleType: 'decimal' }}>
+                <li className="mb-3">
+                  The Respondent agrees to pay the Complainant the sum <strong>$5,000</strong> as general damages for injury to dignity, feelings and self-respect.
+                </li>
+
+                <li className="mb-3">
+                  The Respondent agrees to pay the Complainant the sum <strong>$7,000</strong>, less applicable deductions, as compensation for loss of wages.
+                </li>
+
+                <li className="mb-3">
+                  The Respondent agrees to provide the Complainant with a letter confirming the Complainant's position, dates of employment and wage.
+                </li>
+
+                <li className="mb-3">
+                  The Respondent agrees to provide the Complainant with proof of internal audit of policies and dismissal procedures. The Respondent will provide the Complainant with a full explanation to clarify how the Society's obligations under the Human Rights Code, particularly the duty to accommodate an employee's disability to the point of undue hardship, were specifically addressed and remedied in the process of the internal audit.
+                </li>
+
+                <li className="mb-3">
+                  <p className="mb-2">In return, the Complainant agrees to:</p>
+                  <ol className="ml-6 space-y-2" style={{ listStyleType: 'decimal' }}>
+                    <li>Withdraw his/her human rights complaint;</li>
+                    <li>Withdraw any other proceedings against the Respondent arising from the facts on which the complaint was based, and agrees not to commence any other proceedings against the Respondent related to the facts on which the complaint was based.</li>
+                    <li>File a Notice of Withdrawal with the BC Human Rights Tribunal within business days of completion of the terms set out in paragraphs 1 and 2.</li>
+                  </ol>
+                </li>
+
+                <li className="mb-3">
+                  Settlement of this complaint is not an admission of liability by the Respondent.
+                </li>
+
+                <li className="mb-3">
+                  The parties agree that the terms of this agreement are confidential and will not be divulged to third parties, unless required by law. The parties agree that, if asked, they will only say that "the parties resolved the complaint".
+                </li>
+              </ol>
+            </div>
+
+            {/* Signature Section */}
+            <div className="mt-12 mb-8">
+              <p className="mb-8">
+                Signed this ________day of _____________, 20____, in the city of: _______________________
+              </p>
+
+              <div className="mb-12">
+                <div className="border-b border-gray-800 mb-2" style={{ width: '400px' }}></div>
+                <p className="font-medium">Evelyn Travis</p>
+              </div>
+
+              <div className="mb-8">
+                <div className="border-b border-gray-800 mb-2" style={{ width: '400px' }}></div>
+                <p className="font-medium">Penticton and Area Access Society</p>
+              </div>
+
+              <p className="text-sm text-gray-600 mt-8">original to complainant</p>
+              <p className="text-sm text-gray-600">copy to respondent</p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-end gap-4 pt-6 border-t-2 border-gray-300 mt-12">
+              <Button
+                variant="secondary"
+                size="large"
+                onClick={handleSettlementPDFSaveDraft}
+              >
+                Save as draft
+              </Button>
+              <Button
+                size="large"
+                onClick={handleSettlementPDFApprove}
+              >
+                Approve
+              </Button>
+            </div>
+          </div>
         </div>
       </Modal>
 

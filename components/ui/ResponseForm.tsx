@@ -23,8 +23,28 @@ export interface ResponseFormData {
 }
 
 export function ResponseForm({ onSubmit }: ResponseFormProps) {
-  const [factsAgree, setFactsAgree] = useState('');
-  const [factsDisagree, setFactsDisagree] = useState('');
+  const [factsAgree, setFactsAgree] = useState(`Employment Duration: February 1, 2014, until August 10, 2016.
+
+Position: Advocacy Outreach Worker, working 20 hours per week at the Society's satellite office. Ms. Travis also worked a second part-time job.
+
+Incident/Injury: On April 30, 2016, Ms. Travis was involved in a motorcycle accident.
+
+Injuries Sustained: Concussion-like symptoms, ankle sprain, torn knee ligament, injuries to her neck, and various other soft tissue injuries.
+
+Accommodation Period:
+• The Society informed Ms. Travis on May 12, 2016, that her position would be held open without pay until August 10, 2016 (three months).
+• Ms. Travis did not attend work during May or most of June.
+• From June 24 to July 15, 2016, Ms. Travis began a gradual return to work program, initially working four hours per week (one four-hour shift for the Society every other week).
+• Starting July 19, 2016, she increased to one four-hour shift per week at both of her jobs.
+
+Termination: Ms. Travis' employment was terminated on August 10, 2016. The termination letter confirmed she was able to work four hours per week but stated she could not give a return date, and the Society "need[s] to provide more stability regarding our service"`);
+  const [factsDisagree, setFactsDisagree] = useState(`Basis of Discrimination: Physical disability.
+
+Area of Activity: Employment.
+
+Applicable Legislation: Section 13 of the Human Rights Code [Code], RSBC 1996, c. 210 (as amended).
+
+Complainant's Position: Ms. Travis says the Society's termination of her employment violates s. 13 of the Code.`);
   const [supportingDocs, setSupportingDocs] = useState<File | null>(null);
   const [otherProceedings, setOtherProceedings] = useState(false);
   const [mediationResponse, setMediationResponse] = useState<'agree-tribunal-date' | 'agree-new-date' | 'disagree' | null>(null);

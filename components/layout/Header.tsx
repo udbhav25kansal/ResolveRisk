@@ -78,13 +78,6 @@ export function Header({ isAuthenticated = false, userName }: HeaderProps) {
                     Timeline
                   </Link>
                   <Link
-                    href="/complaint-summary"
-                    className="hover:opacity-70 transition-opacity font-medium"
-                    style={{ color: 'var(--primary-text)' }}
-                  >
-                    Complaint Hub
-                  </Link>
-                  <Link
                     href="/complaint-hub"
                     className="hover:opacity-70 transition-opacity font-medium"
                     style={{ color: 'var(--primary-text)' }}
