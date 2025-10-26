@@ -210,7 +210,7 @@ export default function Home() {
                 backgroundColor: 'var(--primary-bubble)',
                 color: 'var(--primary-bubble-text)'
               }}>
-                <h3 className="font-semibold" style={{ fontSize: 'var(--text-body)', color: 'var(--primary-bubble-text)' }}>Complaint Hub</h3>
+                <h3 className="font-semibold" style={{ fontSize: 'var(--text-body)', color: 'var(--primary-bubble-text)' }}>Complaint Summary</h3>
               </Card>
             </Link>
             <Link href="/contact">

@@ -82,14 +82,14 @@ export function Header({ isAuthenticated = false, userName }: HeaderProps) {
                     className="hover:opacity-70 transition-opacity font-medium"
                     style={{ color: 'var(--primary-text)' }}
                   >
-                    Complaint Summary
+                    Complaint Hub
                   </Link>
                   <Link
                     href="/complaint-hub"
                     className="hover:opacity-70 transition-opacity font-medium"
                     style={{ color: 'var(--primary-text)' }}
                   >
-                    Complaint Hub
+                    Complaint Summary
                   </Link>
                 </>
               ) : null}

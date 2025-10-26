@@ -1,5 +1,5 @@
 /**
- * Complaint Hub Page
+ * Complaint Summary Page
  * Central location for all complaint information and documents
  * Organized with expandable sections containing detailed information
  */
@@ -222,7 +222,7 @@ export default function ComplaintHub() {
             </Link>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-primary-dark mb-4">
-            Complaint Hub - Case #{complaintData.caseNumber}
+            Complaint Summary - Case #{complaintData.caseNumber}
           </h1>
           <p className="text-lg text-primary-dark/80 italic">
             Complete complaint information and documents
