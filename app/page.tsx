@@ -391,7 +391,7 @@ Address Discrimination:
             fontWeight: 'var(--weight-bold)',
             fontFamily: 'var(--font-heading)'
           }}>
-            Timeline
+            {uploadedFile || isPhase1Complete ? 'E. Travis (BCHRT 15916)' : 'Timeline'}
           </h1>
           <p className="italic" style={{
             fontSize: 'var(--text-subheading)',
